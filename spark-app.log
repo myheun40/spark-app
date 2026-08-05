@@ -1,0 +1,585 @@
+
+Events:
+  Type    Reason                     Age   From                          Message
+  ----    ------                     ----  ----                          -------
+  Normal  SparkApplicationSubmitted  51s   spark-application-controller  SparkApplication druid-to-iotdb was submitted successfully
+  Normal  SparkDriverRunning         44s   spark-application-controller  Driver druid-to-iotdb-driver is running
+  Normal  SparkExecutorPending       32s   spark-application-controller  Executor druidtoiotdbmigration-45f1959fb718037d-exec-1 is pending
+  Normal  SparkExecutorPending       32s   spark-application-controller  Executor druidtoiotdbmigration-45f1959fb718037d-exec-2 is pending
+  Normal  SparkExecutorPending       32s   spark-application-controller  Executor druidtoiotdbmigration-45f1959fb718037d-exec-3 is pending
+  Normal  SparkExecutorRunning       21s   spark-application-controller  Executor druidtoiotdbmigration-45f1959fb718037d-exec-1 is running
+  Normal  SparkExecutorRunning       8s    spark-application-controller  Executor druidtoiotdbmigration-45f1959fb718037d-exec-3 is running
+  Normal  SparkExecutorRunning       6s    spark-application-controller  Executor druidtoiotdbmigration-45f1959fb718037d-exec-2 is running
+[root@k8s-master-01 spark]# kubectl get pods -w
+NAME                                            READY   STATUS             RESTARTS         AGE
+druid-to-iotdb-driver                           1/1     Running            0                65s
+druidtoiotdbmigration-45f1959fb718037d-exec-1   1/1     Running            0                45s
+druidtoiotdbmigration-45f1959fb718037d-exec-2   1/1     Running            0                45s
+druidtoiotdbmigration-45f1959fb718037d-exec-3   1/1     Running            0                45s
+telegraf-56cbb6754-kww9g                        0/1     CrashLoopBackOff   6115 (62s ago)   23d
+telegraf-7557ff767d-ghkq4                       0/1     Completed          0                112d
+druidtoiotdbmigration-45f1959fb718037d-exec-1   1/1     Terminating        0                50s
+druidtoiotdbmigration-45f1959fb718037d-exec-2   1/1     Terminating        0                50s
+druidtoiotdbmigration-45f1959fb718037d-exec-3   1/1     Terminating        0                50s
+druidtoiotdbmigration-45f1959fb718037d-exec-1   1/1     Terminating        0                50s
+druidtoiotdbmigration-45f1959fb718037d-exec-2   1/1     Terminating        0                50s
+druidtoiotdbmigration-45f1959fb718037d-exec-3   1/1     Terminating        0                50s
+druidtoiotdbmigration-45f1959fb718037d-exec-1   0/1     Completed          0                50s
+druidtoiotdbmigration-45f1959fb718037d-exec-2   0/1     Completed          0                50s
+druidtoiotdbmigration-45f1959fb718037d-exec-3   0/1     Completed          0                50s
+druidtoiotdbmigration-45f1959fb718037d-exec-1   0/1     Completed          0                50s
+druidtoiotdbmigration-45f1959fb718037d-exec-1   0/1     Completed          0                51s
+druidtoiotdbmigration-45f1959fb718037d-exec-2   0/1     Completed          0                51s
+druidtoiotdbmigration-45f1959fb718037d-exec-2   0/1     Completed          0                51s
+^C[root@k8s-master-01 spark]# kubectl logdruidtoiotdbmigration-45f1959fb718037d-exec-1-1
+error: error from server (NotFound): pods "druidtoiotdbmigration-45f1959fb718037d-exec-1" not found in namespace "default"
+[root@k8s-master-01 spark]# kubectl logs druidtoiotdbmigration-45f1959fb718037d-exec-1
+error: error from server (NotFound): pods "druidtoiotdbmigration-45f1959fb718037d-exec-1" not found in namespace "default"
+[root@k8s-master-01 spark]# ^C
+[root@k8s-master-01 spark]# kubectl logs druid-to-iotdb-driver -f
+26/07/31 07:33:49 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/07/31 07:33:50 INFO SparkContext: Running Spark version 3.5.9
+26/07/31 07:33:50 INFO SparkContext: OS info Linux, 5.14.0-570.17.1.el9_6.x86_64, amd64
+26/07/31 07:33:50 INFO SparkContext: Java version 11.0.31
+26/07/31 07:33:50 INFO ResourceUtils: ==============================================================
+26/07/31 07:33:50 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/07/31 07:33:50 INFO ResourceUtils: ==============================================================
+26/07/31 07:33:50 INFO SparkContext: Submitted application: DruidToIoTDBMigration
+26/07/31 07:33:50 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 2, script: , vendor: , memory -> name: memory, amount: 4096, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/07/31 07:33:50 INFO ResourceProfile: Limiting resource is cpus at 2 tasks per executor
+26/07/31 07:33:50 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/07/31 07:33:50 INFO SecurityManager: Changing view acls to: spark
+26/07/31 07:33:50 INFO SecurityManager: Changing modify acls to: spark
+26/07/31 07:33:50 INFO SecurityManager: Changing view acls groups to:
+26/07/31 07:33:50 INFO SecurityManager: Changing modify acls groups to:
+26/07/31 07:33:50 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark; groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY
+26/07/31 07:33:51 INFO Utils: Successfully started service 'sparkDriver' on port 7078.
+26/07/31 07:33:51 INFO SparkEnv: Registering MapOutputTracker
+26/07/31 07:33:51 INFO SparkEnv: Registering BlockManagerMaster
+26/07/31 07:33:51 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/07/31 07:33:51 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/07/31 07:33:51 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/07/31 07:33:51 INFO DiskBlockManager: Created local directory at /var/data/spark-86167f97-1f1f-4010-ae74-ee5a7e9380a6/blockmgr-ae27ebe9-6817-4ae9-8a6d-d72f76c4f113
+26/07/31 07:33:51 INFO MemoryStore: MemoryStore started with capacity 1048.8 MiB
+26/07/31 07:33:51 INFO SparkEnv: Registering OutputCommitCoordinator
+26/07/31 07:33:51 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/07/31 07:33:51 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/07/31 07:33:52 INFO SparkKubernetesClientFactory: Auto-configuring K8S client using current context from users K8S config file
+26/07/31 07:33:55 INFO ExecutorPodsAllocator: Going to request 3 executors from Kubernetes for ResourceProfile Id: 0, target: 3, known: 0, sharedSlotFromPendingPods: 2147483647.
+26/07/31 07:33:55 INFO ExecutorPodsAllocator: Found 0 reusable PVCs from 0 PVCs
+26/07/31 07:33:55 INFO BasicExecutorFeatureStep: Decommissioning not enabled, skipping shutdown script
+26/07/31 07:33:56 INFO BasicExecutorFeatureStep: Decommissioning not enabled, skipping shutdown script
+26/07/31 07:33:56 INFO BasicExecutorFeatureStep: Decommissioning not enabled, skipping shutdown script
+26/07/31 07:33:56 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 7079.
+26/07/31 07:33:56 INFO NettyBlockTransferService: Server created on druid-to-iotdb-13806a9fb717c2a5-driver-svc.default.svc 10.244.7.178:7079
+26/07/31 07:33:56 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/07/31 07:33:56 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, druid-to-iotdb-13806a9fb717c2a5-driver-svc.default.svc, 7079, None)
+26/07/31 07:33:56 INFO BlockManagerMasterEndpoint: Registering block manager druid-to-iotdb-13806a9fb717c2a5-driver-svc.default.svc:7079 with 1048.8 MiB RAM, BlockManagerId(driver, druid-to-iotdb-13806a9fb717c2a5-driver-svc.default.svc, 7079, None)
+26/07/31 07:33:56 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, druid-to-iotdb-13806a9fb717c2a5-driver-svc.default.svc, 7079, None)
+26/07/31 07:33:57 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, druid-to-iotdb-13806a9fb717c2a5-driver-svc.default.svc, 7079, None)
+26/07/31 07:34:08 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: No executor found for 10.244.7.173:58904
+26/07/31 07:34:09 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (10.244.7.173:58920) with ID 1,  ResourceProfileId 0
+26/07/31 07:34:09 INFO BlockManagerMasterEndpoint: Registering block manager 10.244.7.173:44107 with 2.2 GiB RAM, BlockManagerId(1, 10.244.7.173, 44107, None)
+26/07/31 07:34:22 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: No executor found for 10.244.7.134:53342
+26/07/31 07:34:22 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (10.244.7.134:53352) with ID 3,  ResourceProfileId 0
+26/07/31 07:34:22 INFO BlockManagerMasterEndpoint: Registering block manager 10.244.7.134:35089 with 2.2 GiB RAM, BlockManagerId(3, 10.244.7.134, 35089, None)
+26/07/31 07:34:24 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: No executor found for 10.244.7.169:40382
+26/07/31 07:34:24 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (10.244.7.169:40392) with ID 2,  ResourceProfileId 0
+26/07/31 07:34:24 INFO KubernetesClusterSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.8
+26/07/31 07:34:25 INFO BlockManagerMasterEndpoint: Registering block manager 10.244.7.169:45349 with 2.2 GiB RAM, BlockManagerId(2, 10.244.7.169, 45349, None)
+Reading data from Druid: jdbc:avatica:remote:url=http://druid-druid-cluster-brokers.druid.svc.cluster.local:8082/druid/v2/sql/avatica/ ...
+26/07/31 07:34:25 INFO SharedState: Setting hive.metastore.warehouse.dir ('null') to the value of spark.sql.warehouse.dir.
+26/07/31 07:34:25 INFO SharedState: Warehouse path is 'file:/opt/spark/work-dir/spark-warehouse'.
+=== Final IoTDB Output Data Sample ===
+root
+ |-- timestamp: timestamp (nullable = true)
+ |-- device: string (nullable = true)
+ |-- OriTime: string (nullable = true)
+ |-- Val: string (nullable = true)
+
+26/07/31 07:34:34 INFO CodeGenerator: Code generated in 483.640787 ms
+26/07/31 07:34:34 INFO SparkContext: Starting job: showString at NativeMethodAccessorImpl.java:0
+26/07/31 07:34:34 INFO DAGScheduler: Got job 0 (showString at NativeMethodAccessorImpl.java:0) with 1 output partitions
+26/07/31 07:34:34 INFO DAGScheduler: Final stage: ResultStage 0 (showString at NativeMethodAccessorImpl.java:0)
+26/07/31 07:34:34 INFO DAGScheduler: Parents of final stage: List()
+26/07/31 07:34:34 INFO DAGScheduler: Missing parents: List()
+26/07/31 07:34:34 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[2] at showString at NativeMethodAccessorImpl.java:0), which has no missing parents
+26/07/31 07:34:35 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 13.2 KiB, free 1048.8 MiB)
+26/07/31 07:34:35 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 6.7 KiB, free 1048.8 MiB)
+26/07/31 07:34:35 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on druid-to-iotdb-13806a9fb717c2a5-driver-svc.default.svc:7079 (size: 6.7 KiB, free: 1048.8 MiB)
+26/07/31 07:34:35 INFO SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:1611
+26/07/31 07:34:35 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[2] at showString at NativeMethodAccessorImpl.java:0) (first 15 tasks are for partitions Vector(0))
+26/07/31 07:34:35 INFO TaskSchedulerImpl: Adding task set 0.0 with 1 tasks resource profile 0
+26/07/31 07:34:35 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0) (10.244.7.173, executor 1, partition 0, PROCESS_LOCAL, 8864 bytes)
+26/07/31 07:34:36 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 10.244.7.173:44107 (size: 6.7 KiB, free: 2.2 GiB)
+26/07/31 07:34:39 WARN TaskSetManager: Lost task 0.0 in stage 0.0 (TID 0) (10.244.7.173 executor 1): org.apache.calcite.avatica.AvaticaSqlException: Error -1 (00000) : Remote driver error: QueryInterruptedException: Connection reset -> SocketException: Connection reset
+        at org.apache.calcite.avatica.Helper.createException(Helper.java:54)
+        at org.apache.calcite.avatica.Helper.createException(Helper.java:41)
+        at org.apache.calcite.avatica.AvaticaConnection.executeQueryInternal(AvaticaConnection.java:559)
+        at org.apache.calcite.avatica.AvaticaPreparedStatement.executeQuery(AvaticaPreparedStatement.java:137)
+        at org.apache.spark.sql.execution.datasources.jdbc.JDBCRDD.compute(JDBCRDD.scala:304)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
+        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
+        at org.apache.spark.scheduler.Task.run(Task.scala:141)
+        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:621)
+        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
+        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:624)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+QueryInterruptedException{msg=Connection reset, code=Unknown exception, class=java.net.SocketException, host=druid-druid-cluster-historicals-5.druid-druid-cluster-historicals.druid.svc.cluster.local:8083}
+        at org.apache.druid.client.JsonParserIterator.convertException(JsonParserIterator.java:300)
+        at org.apache.druid.client.JsonParserIterator.init(JsonParserIterator.java:213)
+        at org.apache.druid.client.JsonParserIterator.hasNext(JsonParserIterator.java:102)
+        at org.apache.druid.java.util.common.guava.BaseSequence.toYielder(BaseSequence.java:70)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.MergeSequence.lambda$toYielder$0(MergeSequence.java:66)
+        at org.apache.druid.java.util.common.guava.MappingAccumulator.accumulate(MappingAccumulator.java:40)
+        at org.apache.druid.java.util.common.guava.BaseSequence.accumulate(BaseSequence.java:44)
+        at org.apache.druid.java.util.common.guava.MappedSequence.accumulate(MappedSequence.java:43)
+        at org.apache.druid.java.util.common.guava.MergeSequence.toYielder(MergeSequence.java:63)
+        at org.apache.druid.java.util.common.guava.LazySequence.toYielder(LazySequence.java:46)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.java.util.common.guava.SequenceWrapper.wrap(SequenceWrapper.java:55)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.MergeSequence.lambda$toYielder$0(MergeSequence.java:66)
+        at org.apache.druid.java.util.common.guava.BaseSequence.accumulate(BaseSequence.java:44)
+        at org.apache.druid.java.util.common.guava.MergeSequence.toYielder(MergeSequence.java:63)
+        at org.apache.druid.query.RetryQueryRunner$1.toYielder(RetryQueryRunner.java:133)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.query.CPUTimeMetricQueryRunner$1.wrap(CPUTimeMetricQueryRunner.java:77)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.java.util.common.guava.SequenceWrapper.wrap(SequenceWrapper.java:55)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.ConcatSequence.toYielder(ConcatSequence.java:51)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.Yielders.each(Yielders.java:32)
+        at org.apache.druid.sql.avatica.DruidJdbcResultSet.lambda$execute$0(DruidJdbcResultSet.java:239)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.net.SocketException: Connection reset
+        at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:394)
+        at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:426)
+        at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:64)
+        at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:108)
+        at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337)
+        at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89)
+        at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178)
+        at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+        at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+        ... 3 more
+
+
+26/07/31 07:34:39 INFO TaskSetManager: Starting task 0.1 in stage 0.0 (TID 1) (10.244.7.173, executor 1, partition 0, PROCESS_LOCAL, 8864 bytes)
+26/07/31 07:34:40 INFO TaskSetManager: Lost task 0.1 in stage 0.0 (TID 1) on 10.244.7.173, executor 1: org.apache.calcite.avatica.AvaticaSqlException (Error -1 (00000) : Remote driver error: QueryInterruptedException: Connection reset -> SocketException: Connection reset) [duplicate 1]
+26/07/31 07:34:40 INFO TaskSetManager: Starting task 0.2 in stage 0.0 (TID 2) (10.244.7.169, executor 2, partition 0, PROCESS_LOCAL, 8864 bytes)
+26/07/31 07:34:40 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 10.244.7.169:45349 (size: 6.7 KiB, free: 2.2 GiB)
+26/07/31 07:34:42 INFO TaskSetManager: Lost task 0.2 in stage 0.0 (TID 2) on 10.244.7.169, executor 2: org.apache.calcite.avatica.AvaticaSqlException (Error -1 (00000) : Remote driver error: QueryInterruptedException: Connection reset -> SocketException: Connection reset) [duplicate 2]
+26/07/31 07:34:42 INFO TaskSetManager: Starting task 0.3 in stage 0.0 (TID 3) (10.244.7.134, executor 3, partition 0, PROCESS_LOCAL, 8864 bytes)
+26/07/31 07:34:42 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 10.244.7.134:35089 (size: 6.7 KiB, free: 2.2 GiB)
+26/07/31 07:34:44 INFO TaskSetManager: Lost task 0.3 in stage 0.0 (TID 3) on 10.244.7.134, executor 3: org.apache.calcite.avatica.AvaticaSqlException (Error -1 (00000) : Remote driver error: QueryInterruptedException: Connection reset -> SocketException: Connection reset) [duplicate 3]
+26/07/31 07:34:44 ERROR TaskSetManager: Task 0 in stage 0.0 failed 4 times; aborting job
+26/07/31 07:34:44 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool
+26/07/31 07:34:44 INFO TaskSchedulerImpl: Cancelling stage 0
+26/07/31 07:34:44 INFO TaskSchedulerImpl: Killing all running tasks in stage 0: Stage cancelled: Job aborted due to stage failure: Task 0 in stage 0.0 failed 4 times, most recent failure: Lost task 0.3 in stage 0.0 (TID 3) (10.244.7.134 executor 3): org.apache.calcite.avatica.AvaticaSqlException: Error -1 (00000) : Remote driver error: QueryInterruptedException: Connection reset -> SocketException: Connection reset
+        at org.apache.calcite.avatica.Helper.createException(Helper.java:54)
+        at org.apache.calcite.avatica.Helper.createException(Helper.java:41)
+        at org.apache.calcite.avatica.AvaticaConnection.executeQueryInternal(AvaticaConnection.java:559)
+        at org.apache.calcite.avatica.AvaticaPreparedStatement.executeQuery(AvaticaPreparedStatement.java:137)
+        at org.apache.spark.sql.execution.datasources.jdbc.JDBCRDD.compute(JDBCRDD.scala:304)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
+        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
+        at org.apache.spark.scheduler.Task.run(Task.scala:141)
+        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:621)
+        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
+        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:624)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+QueryInterruptedException{msg=Connection reset, code=Unknown exception, class=java.net.SocketException, host=druid-druid-cluster-historicals-5.druid-druid-cluster-historicals.druid.svc.cluster.local:8083}
+        at org.apache.druid.client.JsonParserIterator.convertException(JsonParserIterator.java:300)
+        at org.apache.druid.client.JsonParserIterator.init(JsonParserIterator.java:213)
+        at org.apache.druid.client.JsonParserIterator.hasNext(JsonParserIterator.java:102)
+        at org.apache.druid.java.util.common.guava.BaseSequence.toYielder(BaseSequence.java:70)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.MergeSequence.lambda$toYielder$0(MergeSequence.java:66)
+        at org.apache.druid.java.util.common.guava.MappingAccumulator.accumulate(MappingAccumulator.java:40)
+        at org.apache.druid.java.util.common.guava.BaseSequence.accumulate(BaseSequence.java:44)
+        at org.apache.druid.java.util.common.guava.MappedSequence.accumulate(MappedSequence.java:43)
+        at org.apache.druid.java.util.common.guava.MergeSequence.toYielder(MergeSequence.java:63)
+        at org.apache.druid.java.util.common.guava.LazySequence.toYielder(LazySequence.java:46)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.java.util.common.guava.SequenceWrapper.wrap(SequenceWrapper.java:55)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.MergeSequence.lambda$toYielder$0(MergeSequence.java:66)
+        at org.apache.druid.java.util.common.guava.BaseSequence.accumulate(BaseSequence.java:44)
+        at org.apache.druid.java.util.common.guava.MergeSequence.toYielder(MergeSequence.java:63)
+        at org.apache.druid.query.RetryQueryRunner$1.toYielder(RetryQueryRunner.java:133)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.query.CPUTimeMetricQueryRunner$1.wrap(CPUTimeMetricQueryRunner.java:77)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.java.util.common.guava.SequenceWrapper.wrap(SequenceWrapper.java:55)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.ConcatSequence.toYielder(ConcatSequence.java:51)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.Yielders.each(Yielders.java:32)
+        at org.apache.druid.sql.avatica.DruidJdbcResultSet.lambda$execute$0(DruidJdbcResultSet.java:239)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.net.SocketException: Connection reset
+        at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:394)
+        at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:426)
+        at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:64)
+        at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:108)
+        at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337)
+        at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89)
+        at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178)
+        at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+        at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+        ... 3 more
+
+
+Driver stacktrace:
+26/07/31 07:34:44 INFO DAGScheduler: ResultStage 0 (showString at NativeMethodAccessorImpl.java:0) failed in 9.818 s due to Job aborted due to stage failure: Task 0 in stage 0.0 failed 4 times, most recent failure: Lost task 0.3 in stage 0.0 (TID 3) (10.244.7.134 executor 3): org.apache.calcite.avatica.AvaticaSqlException: Error -1 (00000) : Remote driver error: QueryInterruptedException: Connection reset -> SocketException: Connection reset
+        at org.apache.calcite.avatica.Helper.createException(Helper.java:54)
+        at org.apache.calcite.avatica.Helper.createException(Helper.java:41)
+        at org.apache.calcite.avatica.AvaticaConnection.executeQueryInternal(AvaticaConnection.java:559)
+        at org.apache.calcite.avatica.AvaticaPreparedStatement.executeQuery(AvaticaPreparedStatement.java:137)
+        at org.apache.spark.sql.execution.datasources.jdbc.JDBCRDD.compute(JDBCRDD.scala:304)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
+        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
+        at org.apache.spark.scheduler.Task.run(Task.scala:141)
+        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:621)
+        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
+        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:624)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+QueryInterruptedException{msg=Connection reset, code=Unknown exception, class=java.net.SocketException, host=druid-druid-cluster-historicals-5.druid-druid-cluster-historicals.druid.svc.cluster.local:8083}
+        at org.apache.druid.client.JsonParserIterator.convertException(JsonParserIterator.java:300)
+        at org.apache.druid.client.JsonParserIterator.init(JsonParserIterator.java:213)
+        at org.apache.druid.client.JsonParserIterator.hasNext(JsonParserIterator.java:102)
+        at org.apache.druid.java.util.common.guava.BaseSequence.toYielder(BaseSequence.java:70)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.MergeSequence.lambda$toYielder$0(MergeSequence.java:66)
+        at org.apache.druid.java.util.common.guava.MappingAccumulator.accumulate(MappingAccumulator.java:40)
+        at org.apache.druid.java.util.common.guava.BaseSequence.accumulate(BaseSequence.java:44)
+        at org.apache.druid.java.util.common.guava.MappedSequence.accumulate(MappedSequence.java:43)
+        at org.apache.druid.java.util.common.guava.MergeSequence.toYielder(MergeSequence.java:63)
+        at org.apache.druid.java.util.common.guava.LazySequence.toYielder(LazySequence.java:46)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.java.util.common.guava.SequenceWrapper.wrap(SequenceWrapper.java:55)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.MergeSequence.lambda$toYielder$0(MergeSequence.java:66)
+        at org.apache.druid.java.util.common.guava.BaseSequence.accumulate(BaseSequence.java:44)
+        at org.apache.druid.java.util.common.guava.MergeSequence.toYielder(MergeSequence.java:63)
+        at org.apache.druid.query.RetryQueryRunner$1.toYielder(RetryQueryRunner.java:133)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.query.CPUTimeMetricQueryRunner$1.wrap(CPUTimeMetricQueryRunner.java:77)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.java.util.common.guava.SequenceWrapper.wrap(SequenceWrapper.java:55)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.ConcatSequence.toYielder(ConcatSequence.java:51)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.Yielders.each(Yielders.java:32)
+        at org.apache.druid.sql.avatica.DruidJdbcResultSet.lambda$execute$0(DruidJdbcResultSet.java:239)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.net.SocketException: Connection reset
+        at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:394)
+        at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:426)
+        at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:64)
+        at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:108)
+        at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337)
+        at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89)
+        at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178)
+        at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+        at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+        ... 3 more
+
+
+Driver stacktrace:
+26/07/31 07:34:44 INFO DAGScheduler: Job 0 failed: showString at NativeMethodAccessorImpl.java:0, took 10.010246 s
+Traceback (most recent call last):
+  File "/opt/spark/work-dir/app.py", line 83, in <module>
+    main()
+  File "/opt/spark/work-dir/app.py", line 64, in main
+    output_df.show(5, truncate=False)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/dataframe.py", line 946, in show
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/dataframe.py", line 977, in _show_string
+  File "/opt/spark/python/lib/py4j-0.10.9.7-src.zip/py4j/java_gateway.py", line 1322, in __call__
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/errors/exceptions/captured.py", line 179, in deco
+  File "/opt/spark/python/lib/py4j-0.10.9.7-src.zip/py4j/protocol.py", line 326, in get_return_value
+py4j.protocol.Py4JJavaError: An error occurred while calling o96.showString.
+: org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 0.0 failed 4 times, most recent failure: Lost task 0.3 in stage 0.0 (TID 3) (10.244.7.134 executor 3): org.apache.calcite.avatica.AvaticaSqlException: Error -1 (00000) : Remote driver error: QueryInterruptedException: Connection reset -> SocketException: Connection reset
+        at org.apache.calcite.avatica.Helper.createException(Helper.java:54)
+        at org.apache.calcite.avatica.Helper.createException(Helper.java:41)
+        at org.apache.calcite.avatica.AvaticaConnection.executeQueryInternal(AvaticaConnection.java:559)
+        at org.apache.calcite.avatica.AvaticaPreparedStatement.executeQuery(AvaticaPreparedStatement.java:137)
+        at org.apache.spark.sql.execution.datasources.jdbc.JDBCRDD.compute(JDBCRDD.scala:304)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
+        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
+        at org.apache.spark.scheduler.Task.run(Task.scala:141)
+        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:621)
+        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
+        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:624)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+QueryInterruptedException{msg=Connection reset, code=Unknown exception, class=java.net.SocketException, host=druid-druid-cluster-historicals-5.druid-druid-cluster-historicals.druid.svc.cluster.local:8083}
+        at org.apache.druid.client.JsonParserIterator.convertException(JsonParserIterator.java:300)
+        at org.apache.druid.client.JsonParserIterator.init(JsonParserIterator.java:213)
+        at org.apache.druid.client.JsonParserIterator.hasNext(JsonParserIterator.java:102)
+        at org.apache.druid.java.util.common.guava.BaseSequence.toYielder(BaseSequence.java:70)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.MergeSequence.lambda$toYielder$0(MergeSequence.java:66)
+        at org.apache.druid.java.util.common.guava.MappingAccumulator.accumulate(MappingAccumulator.java:40)
+        at org.apache.druid.java.util.common.guava.BaseSequence.accumulate(BaseSequence.java:44)
+        at org.apache.druid.java.util.common.guava.MappedSequence.accumulate(MappedSequence.java:43)
+        at org.apache.druid.java.util.common.guava.MergeSequence.toYielder(MergeSequence.java:63)
+        at org.apache.druid.java.util.common.guava.LazySequence.toYielder(LazySequence.java:46)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.java.util.common.guava.SequenceWrapper.wrap(SequenceWrapper.java:55)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.MergeSequence.lambda$toYielder$0(MergeSequence.java:66)
+        at org.apache.druid.java.util.common.guava.BaseSequence.accumulate(BaseSequence.java:44)
+        at org.apache.druid.java.util.common.guava.MergeSequence.toYielder(MergeSequence.java:63)
+        at org.apache.druid.query.RetryQueryRunner$1.toYielder(RetryQueryRunner.java:133)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.query.CPUTimeMetricQueryRunner$1.wrap(CPUTimeMetricQueryRunner.java:77)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:88)
+        at org.apache.druid.java.util.common.guava.WrappingSequence$2.get(WrappingSequence.java:84)
+        at org.apache.druid.java.util.common.guava.SequenceWrapper.wrap(SequenceWrapper.java:55)
+        at org.apache.druid.java.util.common.guava.WrappingSequence.toYielder(WrappingSequence.java:83)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.ConcatSequence.toYielder(ConcatSequence.java:51)
+        at org.apache.druid.java.util.common.guava.MappedSequence.toYielder(MappedSequence.java:49)
+        at org.apache.druid.java.util.common.guava.Yielders.each(Yielders.java:32)
+        at org.apache.druid.sql.avatica.DruidJdbcResultSet.lambda$execute$0(DruidJdbcResultSet.java:239)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.net.SocketException: Connection reset
+        at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:394)
+        at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:426)
+        at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:64)
+        at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:108)
+        at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337)
+        at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89)
+        at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178)
+        at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+        at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+        ... 3 more
+
+
+Driver stacktrace:
+        at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2898)
+        at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:2834)
+        at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2$adapted(DAGScheduler.scala:2833)
+        at scala.collection.mutable.ResizableArray.foreach(ResizableArray.scala:62)
+        at scala.collection.mutable.ResizableArray.foreach$(ResizableArray.scala:55)
+        at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:49)
+        at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2833)
+        at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1(DAGScheduler.scala:1253)
+        at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1$adapted(DAGScheduler.scala:1253)
+        at scala.Option.foreach(Option.scala:407)
+        at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1253)
+        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:3102)
+        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:3036)
+        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:3025)
+        at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
+        at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:995)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2393)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2414)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2433)
+        at org.apache.spark.sql.execution.SparkPlan.executeTake(SparkPlan.scala:530)
+        at org.apache.spark.sql.execution.SparkPlan.executeTake(SparkPlan.scala:483)
+        at org.apache.spark.sql.execution.CollectLimitExec.executeCollect(limit.scala:61)
+        at org.apache.spark.sql.Dataset.collectFromPlan(Dataset.scala:4333)
+        at org.apache.spark.sql.Dataset.$anonfun$head$1(Dataset.scala:3316)
+        at org.apache.spark.sql.Dataset.$anonfun$withAction$2(Dataset.scala:4323)
+        at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:546)
+        at org.apache.spark.sql.Dataset.$anonfun$withAction$1(Dataset.scala:4321)
+        at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$6(SQLExecution.scala:125)
+        at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:201)
+        at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:108)
+        at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:900)
+        at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:66)
+        at org.apache.spark.sql.Dataset.withAction(Dataset.scala:4321)
+        at org.apache.spark.sql.Dataset.head(Dataset.scala:3316)
+        at org.apache.spark.sql.Dataset.take(Dataset.scala:3539)
+        at org.apache.spark.sql.Dataset.getRows(Dataset.scala:280)
+        at org.apache.spark.sql.Dataset.showString(Dataset.scala:315)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+        at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+        at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+        at py4j.Gateway.invoke(Gateway.java:282)
+        at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+        at py4j.commands.CallCommand.execute(CallCommand.java:79)
+        at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+        at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: org.apache.calcite.avatica.AvaticaSqlException: Error -1 (00000) : Remote driver error: QueryInterruptedException: Connection reset -> SocketException: Connection reset
+        at org.apache.calcite.avatica.Helper.createException(Helper.java:54)
+        at org.apache.calcite.avatica.Helper.createException(Helper.java:41)
+        at org.apache.calcite.avatica.AvaticaConnection.executeQueryInternal(AvaticaConnection.java:559)
+        at org.apache.calcite.avatica.AvaticaPreparedStatement.executeQuery(AvaticaPreparedStatement.java:137)
+        at org.apache.spark.sql.execution.datasources.jdbc.JDBCRDD.compute(JDBCRDD.scala:304)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
+        at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
+        at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
+        at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
+        at org.apache.spark.scheduler.Task.run(Task.scala:141)
+        at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:621)
+        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
+        at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:624)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        ... 1 more
+
+26/07/31 07:34:45 INFO SparkContext: SparkContext is stopping with exitCode 0.
+26/07/31 07:34:45 INFO SparkUI: Stopped Spark web UI at http://druid-to-iotdb-13806a9fb717c2a5-driver-svc.default.svc:4040
+26/07/31 07:34:45 INFO BlockManagerInfo: Removed broadcast_0_piece0 on 10.244.7.169:45349 in memory (size: 6.7 KiB, free: 2.2 GiB)
+26/07/31 07:34:45 INFO BlockManagerInfo: Removed broadcast_0_piece0 on 10.244.7.134:35089 in memory (size: 6.7 KiB, free: 2.2 GiB)
+26/07/31 07:34:45 INFO BlockManagerInfo: Removed broadcast_0_piece0 on 10.244.7.173:44107 in memory (size: 6.7 KiB, free: 2.2 GiB)
+26/07/31 07:34:45 INFO BlockManagerInfo: Removed broadcast_0_piece0 on druid-to-iotdb-13806a9fb717c2a5-driver-svc.default.svc:7079 in memory (size: 6.7 KiB, free: 1048.8 MiB)
+26/07/31 07:34:45 INFO KubernetesClusterSchedulerBackend: Shutting down all executors
+26/07/31 07:34:45 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Asking each executor to shut down
+26/07/31 07:34:45 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Disabling executor 3.
+26/07/31 07:34:45 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Disabling executor 2.
+26/07/31 07:34:45 ERROR Utils: Uncaught exception in thread dispatcher-CoarseGrainedScheduler
+org.apache.spark.SparkException: Could not find CoarseGrainedScheduler.
+        at org.apache.spark.rpc.netty.Dispatcher.postMessage(Dispatcher.scala:178)
+        at org.apache.spark.rpc.netty.Dispatcher.postOneWayMessage(Dispatcher.scala:150)
+        at org.apache.spark.rpc.netty.NettyRpcEnv.send(NettyRpcEnv.scala:193)
+        at org.apache.spark.rpc.netty.NettyRpcEndpointRef.send(NettyRpcEnv.scala:563)
+        at org.apache.spark.scheduler.cluster.CoarseGrainedSchedulerBackend.$anonfun$reviveOffers$1(CoarseGrainedSchedulerBackend.scala:676)
+        at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1375)
+        at org.apache.spark.scheduler.cluster.CoarseGrainedSchedulerBackend.reviveOffers(CoarseGrainedSchedulerBackend.scala:676)
+        at org.apache.spark.scheduler.TaskSchedulerImpl.executorLost(TaskSchedulerImpl.scala:1071)
+        at org.apache.spark.scheduler.cluster.CoarseGrainedSchedulerBackend$DriverEndpoint.disableExecutor(CoarseGrainedSchedulerBackend.scala:520)
+        at org.apache.spark.scheduler.cluster.k8s.KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint.onDisconnected(KubernetesClusterSchedulerBackend.scala:346)
+        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:141)
+        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:213)
+        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:100)
+        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:75)
+        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:41)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+26/07/31 07:34:45 INFO KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint: Disabling executor 1.
+26/07/31 07:34:45 ERROR Utils: Uncaught exception in thread dispatcher-CoarseGrainedScheduler
+org.apache.spark.SparkException: Could not find CoarseGrainedScheduler.
+        at org.apache.spark.rpc.netty.Dispatcher.postMessage(Dispatcher.scala:178)
+        at org.apache.spark.rpc.netty.Dispatcher.postOneWayMessage(Dispatcher.scala:150)
+        at org.apache.spark.rpc.netty.NettyRpcEnv.send(NettyRpcEnv.scala:193)
+        at org.apache.spark.rpc.netty.NettyRpcEndpointRef.send(NettyRpcEnv.scala:563)
+        at org.apache.spark.scheduler.cluster.CoarseGrainedSchedulerBackend.$anonfun$reviveOffers$1(CoarseGrainedSchedulerBackend.scala:676)
+        at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1375)
+        at org.apache.spark.scheduler.cluster.CoarseGrainedSchedulerBackend.reviveOffers(CoarseGrainedSchedulerBackend.scala:676)
+        at org.apache.spark.scheduler.TaskSchedulerImpl.executorLost(TaskSchedulerImpl.scala:1071)
+        at org.apache.spark.scheduler.cluster.CoarseGrainedSchedulerBackend$DriverEndpoint.disableExecutor(CoarseGrainedSchedulerBackend.scala:520)
+        at org.apache.spark.scheduler.cluster.k8s.KubernetesClusterSchedulerBackend$KubernetesDriverEndpoint.onDisconnected(KubernetesClusterSchedulerBackend.scala:346)
+        at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:141)
+        at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:213)
+        at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:100)
+        at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:75)
+        at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:41)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+26/07/31 07:34:45 WARN ExecutorPodsWatchSnapshotSource: Kubernetes client has been closed.
+26/07/31 07:34:46 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+26/07/31 07:34:46 INFO MemoryStore: MemoryStore cleared
+26/07/31 07:34:46 INFO BlockManager: BlockManager stopped
+26/07/31 07:34:46 INFO BlockManagerMaster: BlockManagerMaster stopped
+26/07/31 07:34:46 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+26/07/31 07:34:46 INFO SparkContext: Successfully stopped SparkContext
+26/07/31 07:34:46 INFO ShutdownHookManager: Shutdown hook called
+26/07/31 07:34:46 INFO ShutdownHookManager: Deleting directory /tmp/spark-a717cf8e-756a-4575-a67f-7aa6c11f1362
+26/07/31 07:34:46 INFO ShutdownHookManager: Deleting directory /tmp/spark-e1c06c28-2bee-4eec-a7dc-a204595e4585
+26/07/31 07:34:46 INFO ShutdownHookManager: Deleting directory /tmp/spark-d4ecb497-13bf-4e53-9021-cc7a01b73e35
+26/07/31 07:34:46 INFO ShutdownHookManager: Deleting directory /tmp/spark-8634fb9f-8a27-4bac-ae45-e8fe965f9d0d
+26/07/31 07:34:46 INFO ShutdownHookManager: Deleting directory /tmp/spark-0df180dd-668e-4aa2-9089-1f3b2c8e1086
+26/07/31 07:34:46 INFO ShutdownHookManager: Deleting directory /var/data/spark-86167f97-1f1f-4010-ae74-ee5a7e9380a6/spark-46496b55-dd83-4098-9c4d-1107709ce542/pyspark-264e7a4f-4478-4d53-a6d4-5834326ae6d8
+26/07/31 07:34:46 INFO ShutdownHookManager: Deleting directory /var/data/spark-86167f97-1f1f-4010-ae74-ee5a7e9380a6/spark-46496b55-dd83-4098-9c4d-1107709ce542
