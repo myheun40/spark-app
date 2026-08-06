@@ -75,24 +75,3 @@ kubectl logs -f <driver-pod-name>
 ```
 
 
-## 로컬 실행
-
-1. 의존성 설치
-   ```bash
-   pip install pyspark==3.5.9 python-dotenv apache-iotdb
-   ```
-2. `.env.example`을 복사해 `.env` 작성
-   ```bash
-   cp .env.example .env
-   ```
-3. K8s 내부 서비스에 접근해야 하는 경우 포트 포워딩
-   ```bash
-   kubectl port-forward svc/<druid-broker-svc> 8082:8082 -n <namespace>
-   kubectl port-forward svc/<iotdb-svc> 6667:6667 -n <namespace>
-   ```
-4. 실행
-   ```bash
-   spark-submit --jars "$(ls jars/*.jar | tr '\n' ',')" app.py
-   ```
-
-
